@@ -10,8 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 MongoClient.connect(db.url || process.env.DB, (err, database) => {
     if(err) return console.log(err);
+    
     const myDB = database.db('CMS');
     require("./app/routes")(app, myDB);
+
     app.listen(8000 || process.env.PORT, function(){
         console.log("Server is running at port ", process.env.PORT)
     
