@@ -14,7 +14,7 @@ MongoClient.connect(process.env.DB, (err, database) => {
     const myDB = database.db('CMS');
     require("./app/routes")(app, myDB);
 
-    app.listen(8000 || process.env.PORT, function(){
+    app.listen(process.env.PORT, function(){
         console.log("Server is running at port ", process.env.PORT)
     
 })
