@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 
 
-MongoClient.connect(db.url || process.env.DB, (err, database) => {
+MongoClient.connect(process.env.DB, (err, database) => {
     if(err) return console.log(err);
     
     const myDB = database.db('CMS');
