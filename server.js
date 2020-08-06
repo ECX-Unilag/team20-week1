@@ -17,3 +17,5 @@ MongoClient.connect(db.url || process.env.DB, (err, database) => {
     
 })
 })
+
+//We are using mongoclient and hardcoding the username and pass.
