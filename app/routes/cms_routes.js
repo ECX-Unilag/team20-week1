@@ -5,19 +5,24 @@ module.exports = function(app , db) {
     
     const circularStructureStringify = require('circular-structure-stringify');
     app.post('/api/admin/dashboard', cors(), (req, res) =>{
-        if(req.body.username === 'administrator' && req.body.password === 'team-20'){
+        if(req.body.username == "administrator" && req.body.password == "team-20"){
             db.collection('data').find({}).toArray((err, allData) => {
                 if(err){
-                    res.send({'error':'No data to display.'})
+                    res.send({'error':'Something went wrong.'})
                 }else{
-                  res.send({"response":circularStructureStringify(allData)}); 
+                    if(JSON.parse(circularStructureStringify(allData)).length === 0){
+                        res.send({'error':'No data to display.'})
+                    }else{
+                        res.send({"response":JSON.parse(circularStructureStringify(allData))});
+                    }
+                   
                 }
             })
             
         }else {
             res.send({'error':'Invalid credentials!'});
         }
-    });
+    }); 
  
 
     
@@ -42,6 +47,8 @@ module.exports = function(app , db) {
             var hausa = 1;
         }
 
+        //families: [{ name: req.body.name, number: parseInt(req.body.number)}],
+
         const data = {state: req.body.state, population:req.body.number, homes: 1, yoruba: yoruba, igbo: igbo, hausa: hausa};
        
        
@@ -50,16 +57,23 @@ module.exports = function(app , db) {
                 res.json({'error':'An error occured. Please try again.'});
             }else{
                 if(item !== null){
-                    const update = {state: data.state, population: parseInt(data.population) + parseInt(item.population), homes: item.homes + 1, 
-                        yoruba: item.yoruba + data.yoruba, igbo: item.igbo + data.igbo, hausa: item.hausa + data.hausa};
-                    db.collection('data').update({state: data.state}, update, (err, updatedData)=>{
-                        if(err){
-                            res.json({'error':'An error has occured 0000'}) 
-                        }else{
-                            res.json({'success':'Family data upload successful.'})
-                        }
-                    })
-
+                   // item.families.forEach(function(family){
+                      //  if(family.name === req.body.name && family.number === req.body.number){
+                       //     res.json({'error':'Sorry, the family name and size already exists in our database.'})
+                       // }else{
+                            const update = {state: data.state, population: parseInt(data.population) + parseInt(item.population), homes: item.homes + 1, 
+                                yoruba: item.yoruba + data.yoruba, igbo: item.igbo + data.igbo, hausa: item.hausa + data.hausa
+                               };
+                            db.collection('data').update({state: data.state}, update, {upsert: true}, (err, updatedData)=>{
+                                if(err){
+                                    console.log(err)
+                                    res.json({'error':'An error has occured 0000'}) 
+                                }else{
+                                    res.json({'success':'Family data upload successful.'})
+                                }
+                            })
+                      //  }
+                   // })
                 }else{
                     db.collection('data').insert(data, (err, results) =>{
                         if(err){
