@@ -6,7 +6,7 @@ module.exports = function(app , db) {
     const circularStructureStringify = require('circular-structure-stringify');
     app.post('/api/admin/dashboard', cors(), (req, res) =>{
        
-        if(req.body.username === "administrator" && req.body.password == "team-20"){
+        if(req.body.username === process.env.Admin && req.body.password === process.env.Password){
             db.collection('data').find({}).toArray((err, allData) => {
                 if(err){
                     res.send({'error':'Something went wrong.'})
