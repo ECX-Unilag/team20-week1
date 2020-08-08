@@ -1,8 +1,10 @@
 const { json } = require("body-parser");
+const cors = require("cors");
 
 module.exports = function(app , db) {
+    
     const circularStructureStringify = require('circular-structure-stringify');
-    app.post('/api/admin/dashboard', (req, res) =>{
+    app.post('/api/admin/dashboard', cors(), (req, res) =>{
         if(req.body.username === 'administrator' && req.body.password === 'team-20'){
             db.collection('data').find({}).toArray((err, allData) => {
                 if(err){
@@ -25,7 +27,7 @@ module.exports = function(app , db) {
     })
 
 
-    app.post('/api/data-upload', (req, res) => {
+    app.post('/api/data-upload', cors(), (req, res) => {
         if (req.body.language === 'Yoruba'){``
             var yoruba = 1;
             var igbo = 0;
