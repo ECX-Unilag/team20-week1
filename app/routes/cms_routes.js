@@ -3,7 +3,7 @@ const { json } = require("body-parser");
 module.exports = function(app , db) {
     const circularStructureStringify = require('circular-structure-stringify');
     app.post('/api/admin/dashboard', (req, res) =>{
-        if(req.body.username === process.env.Admin && req.body.password === process.env.Password){
+        if(req.body.username === 'administrator' && req.body.password === 'team-20'){
             db.collection('data').find({}).toArray((err, allData) => {
                 if(err){
                     res.send({'error':'No data to display.'})
@@ -26,7 +26,7 @@ module.exports = function(app , db) {
 
 
     app.post('/api/data-upload', (req, res) => {
-        if (req.body.language === 'Yoruba'){
+        if (req.body.language === 'Yoruba'){``
             var yoruba = 1;
             var igbo = 0;
             var hausa = 0;
