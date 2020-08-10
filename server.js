@@ -20,9 +20,8 @@ MongoClient.connect(process.env.DB, (err, database) => {
     require('./app/routes')(app, myDB)
 
     app.listen( process.env.PORT, function(){
-        console.log("Server is running at port ", process.env.PORT)
-    
-})
+        console.log("Server is running at port ", process.env.PORT) 
+    })
 })
 
 //We are using mongoclient and hardcoding the username and pass.

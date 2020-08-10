@@ -4,6 +4,9 @@ const cors = require("cors");
 module.exports = function(app , db) {
     
     const circularStructureStringify = require('circular-structure-stringify');
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.EMAIL_KEY);
+
     app.post('/api/admin/dashboard', cors(), (req, res) =>{
        
         if(req.body.username === process.env.Admin && req.body.password === process.env.Password){
@@ -26,7 +29,19 @@ module.exports = function(app , db) {
     }); 
  
 
-    
+    app.post('/api/user/message', cors(), (req, res)=>{
+        const msg = {
+            to: 'developmenthub123@gmail.com',
+            from: 'developmenthub123@gmail.com',
+            subject: req.body.name+ ' ' + '|' + ' '+req.body.subject,
+            html: `<p>From: ${req.body.name}<br>Email: ${req.body.email}<br>Message:<br>${req.body.message}</p>`
+        };
+        sgMail.send(msg).then(() => {
+            res.send({"success": "Your message was sent successfully"});
+        }).catch(error => {
+            res.send({"error": "An error occured. Please try agian."});
+        })
+    })
 
     app.get('/', (req, res) => {
         res.send({'success': 'Census Management System API designed by Charles Ugbana'})
