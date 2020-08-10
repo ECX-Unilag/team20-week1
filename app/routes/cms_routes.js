@@ -31,10 +31,10 @@ module.exports = function(app , db) {
 
     app.post('/api/user/message', cors(), (req, res)=>{
         const msg = {
-            to: 'developmenthub123@gmail.com',
+            to: 'charlesugbana04@gmail.com',
             from: 'developmenthub123@gmail.com',
             subject: req.body.name+ ' ' + '|' + ' '+req.body.subject,
-            html: `<p>From: ${req.body.name}<br>Email: ${req.body.email}<br>Message:<br>${req.body.message}</p>`
+            html: '<p>From: '+req.body.name +'<br>Email: '+req.body.email +'<br>Message:<br>'+req.body.message+ '</p>'
         };
         sgMail.send(msg).then(() => {
             res.send({"success": "Your message was sent successfully"});
