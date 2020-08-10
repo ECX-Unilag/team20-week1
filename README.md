@@ -28,7 +28,7 @@ Census Management System is a system designed to automate collection, sorting, a
 -STEPS TAKEN-
 1. A design was made available for implemtation.
 2. A Nodejs and MongoDB API was built that controls the logic side of the project, so that the MOBILE and WEB version would have a common database.
-3. The frontend was built using React.js
+3. The frontend was built using React.js, HTML, CSS and JS.
 
 
 -HOW IT WORKS-
