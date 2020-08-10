@@ -3,8 +3,10 @@ Project Name:
 Census Management System
 
 
-#Project link:
+#Project link (WEB):
 https://cms-app.netlify.app/
+
+#UNABLE TO COMPLETE THE APP VERSION
 
 #Links to MOBILE designs:
  https://xd.adobe.com/view/c35c9784-57f9-429b-b4fb-1bdf7d72dde6-960f/
